@@ -1,5 +1,6 @@
 using System.Reflection;
 using Assignment.Counters.Api.Infrastructure;
+using Assignment.Counters.Api.Infrastructure.Extensions;
 using Assignment.Counters.Api.Infrastructure.Filters;
 using Assignment.Counters.Api.Infrastructure.Validation;
 using Assignment.Counters.Application.Interfaces;
@@ -15,7 +16,7 @@ namespace Assignment.Counters.Api;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
         
@@ -59,12 +60,17 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        if (app.Configuration.UseTestData())
+        {
+            await app.Services.AddTestData();
+        }
+
         app.UseRouting();
 
         app.MapControllers();
         
         // add test data?
 
-        app.Run();
+        await app.RunAsync();
     }
 }
