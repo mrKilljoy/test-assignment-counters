@@ -10,7 +10,7 @@ namespace Assignment.Counters.Api.Controllers;
 /// </summary>
 [Route("api/[controller]")]
 [ApiController]
-public class TeamsController : ControllerBase
+public class TeamsController : BaseController
 {
     private readonly ITeamManager _teamManager;
     private readonly ICounterManager _counterManager;
@@ -37,7 +37,7 @@ public class TeamsController : ControllerBase
         }
         catch (Exception ex)
         {
-            return Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+            return SpecifyErrorResponse(ex);
         }
     }
     
@@ -56,7 +56,7 @@ public class TeamsController : ControllerBase
         }
         catch (Exception ex)
         {
-            return Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+            return SpecifyErrorResponse(ex);
         }
     }
     
@@ -76,7 +76,7 @@ public class TeamsController : ControllerBase
         }
         catch (Exception ex)
         {
-            return Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+            return SpecifyErrorResponse(ex);
         }
     }
     
@@ -95,7 +95,7 @@ public class TeamsController : ControllerBase
         }
         catch (Exception ex)
         {
-            return Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+            return SpecifyErrorResponse(ex);
         }
     }
     
@@ -105,16 +105,16 @@ public class TeamsController : ControllerBase
     /// <param name="id">The team ID.</param>
     /// <returns>Operation result.</returns>
     [HttpDelete]
-    public IActionResult DeleteTeam([FromRoute]Guid id)
+    public async Task<IActionResult> DeleteTeam([FromRoute]Guid id)
     {
         try
         {
-            _teamManager.Delete(id);
+            await _teamManager.Delete(id);
             return Ok();
         }
         catch (Exception ex)
         {
-            return Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+            return SpecifyErrorResponse(ex);
         }
     }
 }

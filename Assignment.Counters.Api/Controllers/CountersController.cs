@@ -13,7 +13,7 @@ namespace Assignment.Counters.Api.Controllers;
 /// </remarks>
 [Route("api/[controller]")]
 [ApiController]
-public class CountersController : ControllerBase
+public class CountersController : BaseController
 {
     private readonly ICounterManager _counterManager;
 
@@ -37,7 +37,7 @@ public class CountersController : ControllerBase
         }
         catch (Exception ex)
         {
-            return Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+            return SpecifyErrorResponse(ex);
         }
     }
     
@@ -56,7 +56,7 @@ public class CountersController : ControllerBase
         }
         catch (Exception ex)
         {
-            return Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+            return SpecifyErrorResponse(ex);
         }
     }
     
@@ -76,7 +76,7 @@ public class CountersController : ControllerBase
         }
         catch (Exception ex)
         {
-            return Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+            return SpecifyErrorResponse(ex);
         }
     }
     
@@ -95,7 +95,7 @@ public class CountersController : ControllerBase
         }
         catch (Exception ex)
         {
-            return Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+            return SpecifyErrorResponse(ex);
         }
     }
 }
