@@ -117,7 +117,7 @@ public class TeamsController : BaseController
     /// </summary>
     /// <param name="id">The team ID.</param>
     /// <returns>Operation result.</returns>
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTeam([FromRoute]Guid id)
     {
         try

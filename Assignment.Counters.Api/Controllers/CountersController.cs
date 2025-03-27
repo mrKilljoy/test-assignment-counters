@@ -107,7 +107,7 @@ public class CountersController : BaseController
     /// </summary>
     /// <param name="id">The counter ID.</param>
     /// <returns>Operation result.</returns>
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCounter([FromRoute]Guid id)
     {
         try
