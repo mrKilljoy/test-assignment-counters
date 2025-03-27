@@ -1,9 +1,12 @@
 using System.Reflection;
 using Assignment.Counters.Api.Infrastructure;
 using Assignment.Counters.Api.Infrastructure.Filters;
+using Assignment.Counters.Api.Infrastructure.Validation;
 using Assignment.Counters.Application.Interfaces;
+using Assignment.Counters.Application.Models.Requests;
 using Assignment.Counters.Infrastructure.Data;
 using Assignment.Counters.Infrastructure.Services;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using WebApplication = Microsoft.AspNetCore.Builder.WebApplication;
@@ -22,6 +25,10 @@ public class Program
         builder.Services.AddDbContext<AppDbContext>(b =>
             b.UseInMemoryDatabase(Constants.Data.DatabaseName));
 
+        builder.Services.AddTransient<IValidator<NewTeamRequest>, NewTeamValidator>();
+        builder.Services.AddTransient<IValidator<NewCounterRequest>, NewCounterValidator>();
+        builder.Services.AddTransient<IValidator<IncrementCounterRequest>, IncrementCounterValidator>();
+        
         builder.Services.AddTransient<ICounterManager, CounterManager>();
         builder.Services.AddTransient<ITeamManager, TeamManager>();
         

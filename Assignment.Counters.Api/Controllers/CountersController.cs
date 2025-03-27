@@ -1,5 +1,8 @@
-﻿using Assignment.Counters.Application.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+using Assignment.Counters.Application.Interfaces;
 using Assignment.Counters.Application.Models.Requests;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,17 +43,27 @@ public class CountersController : BaseController
             return SpecifyErrorResponse(ex);
         }
     }
-    
+
     /// <summary>
     /// Creates a counter for a user.
     /// </summary>
     /// <param name="request">The request with information for a new counter.</param>
+    /// <param name="validator">The request model validator.</param>
     /// <returns>Operation result.</returns>
     [HttpPost]
-    public async Task<IActionResult> CreateCounter([FromBody]NewCounterRequest request)
+    public async Task<IActionResult> CreateCounter(
+        [FromBody][Required]NewCounterRequest request,
+        [FromServices]IValidator<NewCounterRequest> validator)
     {
         try
         {
+            var validation = await validator.ValidateAsync(request);
+            if (!validation.IsValid)
+            {
+                validation.AddToModelState(ModelState);
+                return BadRequest(ModelState);
+            }
+            
             var result = await _counterManager.Create(request.UserName, request.TeamId);
             return Created(new Uri(Request.GetEncodedUrl()+ "/" + result.Id), result.Id);
         }
@@ -67,10 +80,19 @@ public class CountersController : BaseController
     /// <returns>Operation result.</returns>
     [Route("{id}/increment")]
     [HttpPost]
-    public async Task<IActionResult> Increment([FromBody]IncrementCounterRequest request)
+    public async Task<IActionResult> Increment(
+        [FromBody][Required]IncrementCounterRequest request,
+        [FromServices]IValidator<IncrementCounterRequest> validator)
     {
         try
         {
+            var validation = await validator.ValidateAsync(request);
+            if (!validation.IsValid)
+            {
+                validation.AddToModelState(ModelState);
+                return BadRequest(ModelState);
+            }
+            
             await _counterManager.Increment(request.CounterId, request.Value, request.LastTimestamp);
             return Ok();
         }
