@@ -13,5 +13,9 @@ public class CounterConfiguration : IEntityTypeConfiguration<Counter>
         builder
             .Property(x => x.UserName)
             .IsRequired();
+
+        builder
+            .Property(x => x.LastUpdated)
+            .IsConcurrencyToken();
     }
 }
