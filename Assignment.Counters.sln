@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment.Counters.Applica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment.Counters.Infrastructure", "Assignment.Counters.Infrastructure\Assignment.Counters.Infrastructure.csproj", "{2E253DBD-498A-4895-8F4F-B785634D1A90}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment.Counters.Tests", "Assignment.Counters.Tests\Assignment.Counters.Tests.csproj", "{C69F0066-23A2-4A55-B6CE-1BAD64C6084B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{2E253DBD-498A-4895-8F4F-B785634D1A90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E253DBD-498A-4895-8F4F-B785634D1A90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E253DBD-498A-4895-8F4F-B785634D1A90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C69F0066-23A2-4A55-B6CE-1BAD64C6084B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C69F0066-23A2-4A55-B6CE-1BAD64C6084B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C69F0066-23A2-4A55-B6CE-1BAD64C6084B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C69F0066-23A2-4A55-B6CE-1BAD64C6084B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
